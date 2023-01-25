@@ -5,8 +5,9 @@
 # @example
 #   include cluster_tools::bash::custom_ps1
 class cluster_tools::bash::custom_ps1(
-  String $cluster_name,
-  String $project_name,
+  String  $cluster_name,
+  String  $project_name,
+  Boolean $user_onetime_overwrite = false,
 ) {
 
   $cluster_info = @("END")
@@ -47,5 +48,16 @@ class cluster_tools::bash::custom_ps1(
     group  => 'root',
     mode   => '0644',
     source => "puppet:///modules/cluster_tools/etc/skel/.profile",
+  }
+
+  # Copy to the existing users only when the file is overwritten by puppet
+  exec { 'push updated .bashrc and .profile to the existing users':
+    command     => 'sudo find /home -type d -exec cp /etc/skel/.bashrc {} \; -exec cp /etc/skel/.profile {} \;',
+    path        => $cluster_tools::path,
+    subscribe   => [
+      File['/etc/skel/.bashrc'],
+      File['/etc/skel/.profile'],
+    ],
+    refreshonly => true,
   }
 }
