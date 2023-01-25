@@ -53,7 +53,7 @@ class cluster_tools::bash::custom_ps1(
   # Copy to the existing users only when the file is overwritten by puppet
   if $user_onetime_overwrite {
     exec { 'push updated .bashrc and .profile to the existing users':
-      command     => 'find /home -type d -exec cp /etc/skel/.bashrc {} \; -exec cp /etc/skel/.profile {} \;',
+      command     => '/usr/bin/find /home -type d -exec /usr/bin/cp /etc/skel/.bashrc {} \; -exec /usr/bin/cp /etc/skel/.profile {} \;',
       path        => $cluster_tools::path,
       subscribe   => [
         File['/etc/skel/.bashrc'],
