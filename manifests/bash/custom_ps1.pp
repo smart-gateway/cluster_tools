@@ -7,8 +7,14 @@
 class cluster_tools::bash::custom_ps1(
   String  $cluster_name,
   String  $project_name,
+  Boolean $cluster_hide_shared = true,
   Boolean $user_onetime_overwrite = false,
 ) {
+
+  $cluster_ps1 = $cluster_hide_shared ? {
+    false   => "-${project_name}-${cluster_name}",
+    default => "-${cluster_name}"
+  }
 
   $cluster_info = @("END")
     # HEADER:  /etc/.profile.d/02-cluster-info.sh
@@ -18,7 +24,7 @@ class cluster_tools::bash::custom_ps1(
 
     export CLUSTER_NAME="${cluster_name}"
     export CLUSTER_PROJECT="${project_name}"
-    export CLUSTER_PS1="-${project_name}-${cluster_name}"
+    export CLUSTER_PS1="${cluster_ps1}"
     | - END
 
   # Set the .profile.d file with the ENV variables
