@@ -9,6 +9,7 @@ class cluster_tools::bash::custom_ps1(
   String  $project_name,
   Boolean $cluster_hide_shared = true,
   Boolean $user_onetime_overwrite = false,
+  Array[String] $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
 ) {
 
   $cluster_ps1 = $cluster_hide_shared ? {
@@ -60,7 +61,7 @@ class cluster_tools::bash::custom_ps1(
   if $user_onetime_overwrite {
     exec { 'push updated .bashrc and .profile to the existing users':
       command     => '/usr/bin/find /home -type d -exec /usr/bin/cp /etc/skel/.bashrc {} \; -exec /usr/bin/cp /etc/skel/.profile {} \;',
-      path        => $cluster_tools::path,
+      path        => $cluster_tools::bash::custom_ps1::path,
       subscribe   => [
         File['/etc/skel/.bashrc'],
         File['/etc/skel/.profile'],
