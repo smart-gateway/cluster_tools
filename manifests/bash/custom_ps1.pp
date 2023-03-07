@@ -12,7 +12,7 @@ class cluster_tools::bash::custom_ps1(
   Array[String] $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
 ) {
 
-  $cluster_ps1 = $project_name == "shared" ? {
+  $cluster_ps1 = ( ( $project_name == 'shared' ) and ( $cluster_hide_shared ) ) ? {
     false   => "-${project_name}-${cluster_name}",
     default => "-${cluster_name}"
   }
