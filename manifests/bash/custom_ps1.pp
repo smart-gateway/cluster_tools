@@ -7,7 +7,6 @@
 class cluster_tools::bash::custom_ps1(
   String  $cluster_name,
   String  $project_name,
-  Boolean $cluster_hide_shared = true,
   Boolean $user_onetime_overwrite = false,
   Array[String] $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
 ) {
