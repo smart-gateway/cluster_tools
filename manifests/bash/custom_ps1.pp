@@ -57,6 +57,11 @@ class cluster_tools::bash::custom_ps1(
     source => "puppet:///modules/cluster_tools/etc/skel/.profile",
   }
 
+  ### NOTE: This is a super hacky way to do this. It copies the .bashrc and .profile files from /etc/skel to each user
+  ### in /home then atches the /etc/skel/.bashrc and .profile files for changes via Puppet and if they change it will
+  ### execute the copy again. This would result in overwriting the users existing .bashrc and .profile files which
+  ### may have customizations in them that they didn't want overwritten.
+  #########################################################################
   # Copy to the existing users only when the file is overwritten by puppet
   if $user_onetime_overwrite {
     exec { 'push updated .bashrc and .profile to the existing users':
