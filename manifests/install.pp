@@ -5,7 +5,7 @@
 # @example
 #   include cluster_tools::install
 class cluster_tools::install {
-  # Setup the .profile skeleton file
+  # map ensure values to valid file ensure values
   $netcheck_desired_state = $::cluster_tools::netcheck_ensure ? {
     'absent'      => 'absent',
     'removed'     => 'absent',
