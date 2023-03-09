@@ -6,7 +6,7 @@
 #   include cluster_tools
 class cluster_tools(
   Array[String] $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
-  Boolean       $netcheck_ensure = 'present',
+  String        $netcheck_ensure = 'present',
 ) {
 
   # Ensure class declares subordinate classes
