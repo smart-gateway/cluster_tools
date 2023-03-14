@@ -5,7 +5,7 @@
 __author__     = 'Brent Elliott'
 __email__      = 'brent.j.elliott@intel.com'
 __license__    = 'GPL'
-__version__    = '0.2.4'
+__version__    = '0.3.0'
 __status__     = 'Development'
 __copyright__  = 'Copyright 2023, Intel Corporation'
 __github__     = 'https://www.github.com/brent-elliott/netcheck/'
