@@ -5,8 +5,10 @@
 # @example
 #   include cluster_tools
 class cluster_tools(
-  Array[String] $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
-  String        $netcheck_ensure = 'present',
+  Array[String]     $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
+  String            $netcheck_ensure = 'present',
+  String            $pp_cluster = 'unknown',
+  String            $pp_project = 'unknown',
 ) {
 
   # Ensure class declares subordinate classes
