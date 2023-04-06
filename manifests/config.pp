@@ -35,6 +35,8 @@ class cluster_tools::config {
         match   => '^account\s+required\s+pam_access\.so',
         replace => false,
       }
+    } else {
+      warning("${::hostname}: Unknown project_id (${$facts['project_id']})")
     }
 
   } else {
