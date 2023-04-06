@@ -43,7 +43,7 @@ class cluster_tools::bash::custom_ps1(
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    content => epp('cluster_tools/bashrc.epp', {
+    content => epp('cluster_tools/bash/bashrc.epp', {
       'cluster_ps1' => "\${CLUSTER_PS1}"
     }),
   }
