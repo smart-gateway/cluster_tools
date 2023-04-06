@@ -22,12 +22,12 @@ class cluster_tools::config {
     $certname = $facts['networking']['fqdn']
     notice(sprintf('>> %-60s: ACCESS DEBUG | pp_project = %-20s | pp_cluster = %-20s | group_identifier = %-20s', $certname, $::cluster_tools::pp_project, $::cluster_tools::pp_cluster,$group_identifier))
     if $group_identifier != "unknown" {
-      notice("${::hostname}: project_id = ${group_identifier}")
       # Override to all users on management hosts
       $identifier_value = $facts['mgmt_host'] ? {
         false   => $group_identifier,
         default => $facts['subproject'],
       }
+      notice(sprintf('>> %-60s: SUBPROJECT | identifier_value = %-20s', $identifier_value))
 
       file { '/etc/security/access.conf':
         ensure  => file,
