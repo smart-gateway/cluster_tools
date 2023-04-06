@@ -27,14 +27,14 @@ class cluster_tools::config {
           'group_identifier' => $identifier_value,
         }),
       }
-    }
 
-    -> file_line { 'enable /etc/security/access.conf in /etc/pam.d/common-account':
-      ensure  => present,
-      path    => '/etc/pam.d/common-account',
-      line    => 'account  required       pam_access.so',
-      match   => '^account\s+required\s+pam_access\.so',
-      replace => false,
+      -> file_line { 'enable /etc/security/access.conf in /etc/pam.d/common-account':
+        ensure  => present,
+        path    => '/etc/pam.d/common-account',
+        line    => 'account  required       pam_access.so',
+        match   => '^account\s+required\s+pam_access\.so',
+        replace => false,
+      }
     }
 
   } else {
