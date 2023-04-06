@@ -27,7 +27,7 @@ class cluster_tools::config {
         false   => $group_identifier,
         default => $facts['subproject'],
       }
-      notice(sprintf('>> %-40s: SUBPROJECT | identifier_value = %-20s', $identifier_value))
+      notice(sprintf('>> %-40s: SUBPROJECT | identifier_value = %-20s', $certname, $identifier_value))
 
       file { '/etc/security/access.conf':
         ensure  => file,
