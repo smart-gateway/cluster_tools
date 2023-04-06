@@ -36,7 +36,7 @@ class cluster_tools::config {
         mode    => '0644',
         content => epp('cluster_tools/access/access.epp', {
           'group_identifier' => $::hostname ? {
-            'puppetserver' => 'puppet-admins-${project_id}',
+            'puppetserver' => "puppet-admins-${project_id}",
             'puppet'       => 'puppet-admins-shared',
             default        => "users-${project_id}",
           },
