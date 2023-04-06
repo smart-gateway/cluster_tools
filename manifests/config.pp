@@ -20,7 +20,6 @@ class cluster_tools::config {
     }
 
     $certname = $facts['networking']['fqdn']
-    notice(sprintf('>> %-40s: ACCESS DEBUG | pp_project = %-20s | pp_cluster = %-20s | group_identifier = %-20s', $certname, $::cluster_tools::pp_project, $::cluster_tools::pp_cluster,$group_identifier))
     if $group_identifier != "unknown" {
       # Override to all users on management hosts
       $identifier_value = $facts['mgmt_host'] ? {
