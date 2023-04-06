@@ -5,4 +5,34 @@
 # @example
 #   include cluster_tools::config
 class cluster_tools::config {
+
+  # If the host is joined to the realm configure access rules
+  if $facts['host_realm'] {
+    # Host is joined to a realm, configure access
+    $group_identifier = $facts['project_id']
+    if $group_identifier and !($group_identifier == "" or $group_identifier == "unknown" ) {
+      file { '/etc/security/access.conf':
+        ensure  => file,
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0644',
+        content => epp('cluster_tools/access/access.epp', {
+          'group_identifier' => $group_identifier,
+        }),
+      }
+    }
+
+    -> file_line { 'enable /etc/security/access.conf in /etc/pam.d/common-account':
+      ensure  => present,
+      path    => '/etc/pam.d/common-account',
+      line    => 'account  required       pam_access.so',
+      match   => '^account\s+required\s+pam_access\.so',
+      replace => false,
+    }
+
+  } else {
+    # Host is not joined to a realm, just notify the server logs
+    warning('Host is not joined to a realm')
+  }
+
 }
