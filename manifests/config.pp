@@ -19,7 +19,8 @@ class cluster_tools::config {
       default  => 'unknown',
     }
 
-    notice("${::hostname}: project_id real value = ${group_identifier}")
+    $certname = $facts['certname']
+    notice("${::hostname}: cert ${certname}")
     if $group_identifier != "unknown" {
       notice("${::hostname}: project_id = ${group_identifier}")
       # Override to all users on management hosts
