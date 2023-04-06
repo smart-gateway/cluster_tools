@@ -6,6 +6,7 @@
 #   include cluster_tools::config
 class cluster_tools::config {
 
+  notice("===DEBUG=== pp_project = ${::cluster_tools::pp_project} | pp_cluster = ${::cluster_tools::pp_cluster}")
   # If the host is joined to the realm configure access rules
   if $facts['host_realm'] {
 
