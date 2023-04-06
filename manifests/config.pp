@@ -27,9 +27,6 @@ class cluster_tools::config {
         default  => 'unknown',
       }
 
-      # Temp Debug Print
-      notice(sprintf('>> %-40s: SUBPROJECT DEBUG | subproject = %-20s | project_id = %-10s', $certname, $subproject, $project_id))
-
       # Create the access.conf file to restrict access to specific groups - puppetservers don't allow anyone
       file { '/etc/security/access.conf':
         ensure  => file,
