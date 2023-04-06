@@ -11,7 +11,7 @@ class cluster_tools::config {
     # Host is joined to a realm, configure access
     $group_identifier = $facts['project_id']
     if $group_identifier and !($group_identifier == "" or $group_identifier == "unknown" ) {
-
+      notice("${::hostname}: identifier = ${group_identifier}")
       # Override to all users on management hosts
       $identifier_value = $facts['mgmt_host'] ? {
         false   => $group_identifier,
