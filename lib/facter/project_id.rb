@@ -20,6 +20,6 @@ Facter.add('project_id') do
         project_id = 'unknown'
       end
     end
-    return project_id
+    project_id
   end
 end
