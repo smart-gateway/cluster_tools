@@ -129,7 +129,10 @@
 # User "jo
 
 # Allow access to the project group members
-+ : users-<%= $group_identifier %> : ALL
++ : <%= $group_identifier %> : ALL
+
+# Allow access to global admins
++ : admins-global : ALL
 
 # Allow access to local administrators
 + : root : ALL

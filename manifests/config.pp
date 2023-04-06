@@ -9,42 +9,42 @@ class cluster_tools::config {
   # If the host is joined to the realm configure access rules
   if $facts['host_realm'] {
 
-    # map the project name to a project_id
-    $group_identifier = $::cluster_tools::pp_project ? {
-      'shared' => 'shared',
-      'niwc'   => '064',
-      'lenovo' => '065',
-      'wsr'    => '066',
-      'ido'    => '067',
-      default  => 'unknown',
-    }
-
     $certname = $facts['networking']['fqdn']
     if $::cluster_tools::pp_project != "unknown" {
       # Check if this is a subproject host managed by the shared puppet
       $subproject = $facts['subproject']
 
+      # Set the project_id - on shared MGMT host(s) we allow access to all users
       $project_id = $subproject ? {
-        'shared' => 'shared',
         'niwc'   => '064',
         'lenovo' => '065',
         'wsr'    => '066',
         'ido'    => '067',
+        'shared' => $facts['mgmt_host'] ? {
+          true  => 'all',
+          false => 'shared',
+        },
         default  => 'unknown',
       }
 
+      # Temp Debug Print
       notice(sprintf('>> %-40s: SUBPROJECT DEBUG | subproject = %-20s | project_id = %-10s', $certname, $subproject, $project_id))
 
+      # Create the access.conf file to restrict access to specific groups - puppetservers don't allow anyone
       file { '/etc/security/access.conf':
         ensure  => file,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
         content => epp('cluster_tools/access/access.epp', {
-          'group_identifier' => $project_id,
+          'group_identifier' => $::hostname ? {
+            'puppetserver' => 'users-puppet-admins',
+            default        => "users-${project_id}",
+          },
         }),
       }
 
+      # Ensure that the config file is being used for access
       -> file_line { 'enable /etc/security/access.conf in /etc/pam.d/common-account':
         ensure  => present,
         path    => '/etc/pam.d/common-account',
@@ -52,6 +52,9 @@ class cluster_tools::config {
         match   => '^account\s+required\s+pam_access\.so',
         replace => false,
       }
+
+      # Make special adjustments on MGMT hosts to restrict users
+
     } else {
       warning("${::hostname}: Unknown project_id value = '${::cluster_tools::pp_project}'")
     }
