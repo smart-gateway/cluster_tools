@@ -36,7 +36,7 @@ class cluster_tools::config {
         replace => false,
       }
     } else {
-      warning("${::hostname}: Unknown project_id (${$facts['project_id']})")
+      warning("${::hostname}: Unknown project_id value = '${facts['project_id']}'")
     }
 
   } else {
