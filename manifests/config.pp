@@ -8,21 +8,30 @@ class cluster_tools::config {
 
   # If the host is joined to the realm configure access rules
   if $facts['host_realm'] {
-    # Host is joined to a realm, configure access
-    $group_identifier = $facts['project_id']
-    if $group_identifier and !($group_identifier == "" or $group_identifier == "unknown" ) {
+
+    # map the project name to a project_id
+    $group_identifier = $::cluster_tools::pp_project ? {
+      'shared' => 'shared',
+      'niwc'   => '064',
+      'lenovo' => '065',
+      'wsr'    => '066',
+      'ido'    => '067',
+      default  => 'unknown',
+    }
+
+    if !$group_identifier == "unknown" {
       notice("${::hostname}: identifier = ${group_identifier}")
       # Override to all users on management hosts
       $identifier_value = $facts['mgmt_host'] ? {
         false   => $group_identifier,
-        default => $facts['project_id_effective'],
+        default => $facts['subproject'],
       }
 
       file { '/etc/security/access.conf':
         ensure  => file,
-        owner  => 'root',
-        group  => 'root',
-        mode   => '0644',
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
         content => epp('cluster_tools/access/access.epp', {
           'group_identifier' => $identifier_value,
         }),
