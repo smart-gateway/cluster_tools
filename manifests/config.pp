@@ -11,13 +11,20 @@ class cluster_tools::config {
     # Host is joined to a realm, configure access
     $group_identifier = $facts['project_id']
     if $group_identifier and !($group_identifier == "" or $group_identifier == "unknown" ) {
+
+      # Override to all users on management hosts
+      $identifier_value = $facts['mgmt_host'] {
+        false   => $group_identifier,
+        default => "users-all",
+      }
+
       file { '/etc/security/access.conf':
         ensure  => file,
         owner  => 'root',
         group  => 'root',
         mode   => '0644',
         content => epp('cluster_tools/access/access.epp', {
-          'group_identifier' => $group_identifier,
+          'group_identifier' => $identifier_value,
         }),
       }
     }
