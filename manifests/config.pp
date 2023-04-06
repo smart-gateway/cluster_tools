@@ -13,9 +13,9 @@ class cluster_tools::config {
     if $group_identifier and !($group_identifier == "" or $group_identifier == "unknown" ) {
 
       # Override to all users on management hosts
-      $identifier_value = $facts['mgmt_host'] {
+      $identifier_value = $facts['mgmt_host'] ? {
         false   => $group_identifier,
-        default => "users-all",
+        default => $facts['project_id_effective'],
       }
 
       file { '/etc/security/access.conf':
