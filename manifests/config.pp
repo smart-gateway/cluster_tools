@@ -39,7 +39,7 @@ class cluster_tools::config {
 
   } else {
     # Host is not joined to a realm, just notify the server logs
-    warning('Host is not joined to a realm')
+    warning("${::hostname}: Host is not joined to a realm. value = ${facts['host_realm']}")
   }
 
 }
