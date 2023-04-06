@@ -3,7 +3,7 @@ require 'facter'
 Facter.add('project_id') do
   setcode do
     project_id = nil
-    pp_project = Facter.value('trusted.pp_project')
+    pp_project = Facter.value('trusted.extensions.pp_project')
     if pp_project
       case pp_project
       when 'shared'
