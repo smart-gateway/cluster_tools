@@ -20,7 +20,7 @@ class cluster_tools::config {
         'lenovo' => '065',
         'wsr'    => '066',
         'ido'    => '067',
-        'shared' => $facts['mgmt_host'] ? {
+        'shared' => $facts['mgmt_host'] and $::cluster_tools::pp_project == 'shared'? {
           true  => 'all',
           false => 'shared',
         },
