@@ -19,7 +19,7 @@ class cluster_tools::config {
       default  => 'unknown',
     }
 
-    if !$group_identifier == "unknown" {
+    if $group_identifier != "unknown" {
       notice("${::hostname}: project_id = ${group_identifier}")
       # Override to all users on management hosts
       $identifier_value = $facts['mgmt_host'] ? {
