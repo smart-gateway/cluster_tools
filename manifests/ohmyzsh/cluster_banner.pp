@@ -4,7 +4,7 @@
 #
 # @example
 #   include cluster_tools::ohmyzsh::cluster_banner
-define cluster_tools::ohmyzsh::cluster_banner(
+class cluster_tools::ohmyzsh::cluster_banner(
   String  $cluster_name,
   String  $project_name,
 ) {
