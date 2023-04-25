@@ -26,7 +26,6 @@ class cluster_tools::install {
     source => "puppet:///modules/cluster_tools/tools/netcheck.py",
   }
   file { '/usr/local/bin/puppet-agent-exporter':
-    ensure => puppet_exporter_desired_state,
     owner  => 'root',
     group  => 'root',
     mode   => '0755',
