@@ -7,6 +7,7 @@
 class cluster_tools(
   Array[String]     $path = ['/usr/local/sbin','/usr/local/bin','/usr/sbin','/usr/bin','/sbin','/bin'],
   String            $netcheck_ensure = 'present',
+  String            $puppet_exporter_ensure = 'present',
   String            $pp_cluster = 'unknown',
   String            $pp_project = 'unknown',
 ) {
