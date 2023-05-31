@@ -30,5 +30,6 @@ class cluster_tools::install {
     group  => 'root',
     mode   => '0755',
     source => 'puppet:///modules/cluster_tools/tools/puppet-agent-exporter',
+    notify  => Service['puppet-agent-exporter'],
   }
 }
