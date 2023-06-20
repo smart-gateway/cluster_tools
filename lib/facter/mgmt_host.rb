@@ -1,3 +1,5 @@
+require 'facter'
+
 Facter.add('mgmt_host') do
   setcode do
     hostname = Facter.value(:hostname)

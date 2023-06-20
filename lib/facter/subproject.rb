@@ -1,3 +1,4 @@
+require 'facter'
 # Simulated Output
 # +-------------------------------------+----------------+
 # |              Input                  |     Output     |
