@@ -143,3 +143,5 @@
 
 # Disallow access to all others
 - : ALL : ALL
+
+# There must always be a newline at the end of the file after all directives
