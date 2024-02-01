@@ -20,6 +20,10 @@ class cluster_tools::config {
         'lenovo' => '065',
         'wsr'    => '066',
         'ido'    => '067',
+        'echo'   => '068',
+        'lab01'  => '241',
+        'lab02'  => '242',
+        'lab03'  => '243',
         'shared' => $facts['mgmt_host'] ? {
           true  => 'all',
           false => 'shared',
