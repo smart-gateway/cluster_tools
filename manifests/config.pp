@@ -43,6 +43,7 @@ class cluster_tools::config {
             'puppet'       => 'puppet-admins-shared',
             default        => "users-${project_id}",
           },
+          'system_identifier' => $::hostname,
         }),
       }
 
