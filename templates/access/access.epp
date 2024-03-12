@@ -1,4 +1,5 @@
 <%- | String $group_identifier,
+      String $system_identifier,
 | -%>
 # HEADER:  /etc/security/access.conf
 # HEADER:
