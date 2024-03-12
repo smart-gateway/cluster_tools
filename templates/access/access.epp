@@ -130,7 +130,7 @@
 # User "jo
 
 # Allow access to the system group members
-+ : users-<%= $system_identifier %>.<%= $group_identifier %> : ALL
++ : <%= $system_identifier %> : ALL
 
 # Allow access to the project group members
 + : <%= $group_identifier %> : ALL
